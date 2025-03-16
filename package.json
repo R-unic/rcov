@@ -7,10 +7,14 @@
     "watch": "rbxtsc -w",
     "prepublishOnly": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/R-unic/rcov.git"
+  },
   "keywords": [],
-  "author": "",
+  "author": "runicly",
   "license": "ISC",
-  "description": "",
+  "description": "Code coverage tool for roblox-ts",
   "types": "out/index.d.ts",
   "files": [
     "out",
