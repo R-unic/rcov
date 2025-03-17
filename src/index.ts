@@ -1,5 +1,5 @@
 class CoverageTracker {
-  private readonly trackedLines: Record<string, number> = {};
+  private readonly trackedLines: Record<string, Set<number>> = {};
   private readonly trackedLineCounts: Record<string, number> = {};
 
   /**
@@ -10,16 +10,19 @@ class CoverageTracker {
     let covered = 0;
     for (const [fileName, lineCount] of pairs(this.trackedLineCounts)) {
       total += lineCount;
-      covered += this.trackedLines[fileName];
+      covered += (this.trackedLines[fileName] ?? new Set).size();
     }
+
+    if (covered === 0 && total === 0)
+      return 0;
 
     return covered / total;
   }
 
   /** @hidden */
   public track(fileName: string, line: number): void {
-    this.trackedLines[fileName] ??= 0;
-    this.trackedLines[fileName]++;
+    const tracked = this.trackedLines[fileName] ??= new Set;
+    tracked.add(line);
   }
 
   /** @hidden */
